@@ -1,0 +1,16 @@
+#!/bin/bash
+
+function __log_command() {
+	curl -X POST http://127.0.0.1:3333/commands \
+		-d "status=${?}" \
+		-d "history=$(builtin history 1 | base64 -i -)" \
+		-d "pwd=$PWD" \
+		-d "session_id=$TERM_SESSION_ID" > /dev/null 2>&1 & disown
+}
+
+FILE=$(mktemp)
+curl http://127.0.0.1:3333/commands > $FILE 2>/dev/null
+export HISTFILE=$FILE
+history -r
+history -ps ""
+export PROMPT_COMMAND="__log_command"

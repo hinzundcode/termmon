@@ -1,0 +1,26 @@
+[package]
+name = "termmon"
+version = "0.1.0"
+authors = ["hinzundcode <chris-git@labasch.net>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+chrono = { version = "0.4", default-features = false, features = ["serde"] }
+futures = "0.3"
+hyper = { version = "0.14", default-features = false, features = ["http1", "server", "runtime", "stream"] }
+rusqlite = { version = "0.25", default-features = false, features = ["bundled", "chrono"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.5", features = ["rt", "rt-multi-thread", "macros", "net"] }
+tokio-util = { version = "0.6", features = ["codec"] }
+url = "2.2"
+base64 = "0.13"
+regex = "1"
+
+[profile.release]
+codegen-units = 1
+incremental = false
+panic = "abort"
+lto = true
