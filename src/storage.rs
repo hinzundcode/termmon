@@ -36,7 +36,7 @@ impl SqliteStorage {
 	}
 	
 	pub fn get_latest_commands(&self) -> Vec<Command> {
-		let mut stmt = self.conn.prepare("SELECT * FROM command ORDER BY timestamp DESC LIMIT 500").unwrap();
+		let mut stmt = self.conn.prepare("SELECT * FROM command ORDER BY timestamp DESC LIMIT 5000").unwrap();
 		
 		let iter = stmt.query_map([], |row| {
 			Ok(Command {
